@@ -1,0 +1,18 @@
+#board {
+    display: grid;
+    grid-template-columns: repeat(73, 25px);
+    justify-content: center;
+    align-items: center;
+    margin-top: 4vw;
+}
+
+.btn {
+    margin-left: 10px;
+}
+
+.btncont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vw;
+}
