@@ -525,7 +525,9 @@ const App = () => {
                 </button>
 
                 <button
-                    className="btn btn-success"
+                    className={
+                        !start ? 'btn btn-success' : 'btn btn-success Sel'
+                    }
                     onClick={() => {
                         setstart(!start);
                         setEnd(false);
@@ -535,7 +537,7 @@ const App = () => {
                     Put Start Position
                 </button>
                 <button
-                    className="btn btn-danger"
+                    className={!end ? 'btn btn-danger' : 'btn btn-danger Sel'}
                     onClick={() => {
                         setstart(false);
                         setEnd(!end);
@@ -545,7 +547,9 @@ const App = () => {
                     Put End Position
                 </button>
                 <button
-                    className="btn btn-secondary"
+                    className={
+                        !erase ? 'btn btn-secondary' : 'btn btn-secondary Sel'
+                    }
                     onClick={() => {
                         setstart(false);
                         setEnd(false);
