@@ -47,6 +47,22 @@ const App = () => {
     const [grid, setgrid] = useState(getGrid());
     const [mouseIsPressed, setmouseIsPressed] = useState(false);
 
+    const [start, setstart] = useState(false);
+    const [end, setEnd] = useState(false);
+    const [erase, setErase] = useState(false);
+
+    const [currStart, setCurrStart] = useState([
+        START_NODE_ROW,
+        START_NODE_COL
+    ]);
+    const [currEnd, setCurrEnd] = useState([FINISH_NODE_ROW, FINISH_NODE_COL]);
+
+    START_NODE_ROW = currStart[0];
+    START_NODE_COL = currStart[1];
+
+    FINISH_NODE_ROW = currEnd[0];
+    FINISH_NODE_COL = currEnd[1];
+
     const handleMouseDown = (row, col) => {
         const newGrid = getNewGridWithWallToggled(grid, row, col);
         setgrid(newGrid);
@@ -267,9 +283,8 @@ const App = () => {
                     let newNode = createNode(row, col);
                     if (
                         [row, col].toString() !==
-                        [START_NODE_ROW, START_NODE_COL].toString() ||
-                        [row, col].toString() !==
-                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                        [currStart[0], currStart[1]].toString() ||
+                        [row, col].toString() !== [currEnd[0], currEnd[1]]
                     ) {
                         newGrid[row][col] = { ...newNode, isShort: true };
                         setgrid(newGrid);
@@ -283,8 +298,8 @@ const App = () => {
         // var start = performance.now();
 
         let k = DFSgrid(
-            [START_NODE_ROW, START_NODE_COL],
-            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]],
             grid
         );
 
@@ -302,8 +317,8 @@ const App = () => {
 
                 if (
                     [row, col].toString() !==
-                    [START_NODE_ROW, START_NODE_COL].toString() ||
-                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    [currStart[0], currStart[1]].toString() ||
+                    [row, col].toString() !== [currEnd[0], currEnd[1]]
                 ) {
                     let newNode = createNode(row, col);
                     newGrid[row][col] = { ...newNode, isVisited: true };
@@ -393,6 +408,42 @@ const App = () => {
         }
     };
 
+    const handleExtrafunc = (row, col, type) => {
+        if (type === 'start') {
+            let newGrid = grid.slice();
+
+            let currRow = currStart[0];
+            let currCol = currStart[1];
+
+            newGrid[currRow][currCol].isStart = false;
+            newGrid[row][col].isStart = true;
+            newGrid[row][col].isWall = false;
+
+            setCurrStart([row, col]);
+            setgrid(newGrid);
+            // setstart(false);
+        } else if (type === 'end') {
+            let newGrid = grid.slice();
+
+            let currRow = currEnd[0];
+            let currCol = currEnd[1];
+
+            newGrid[currRow][currCol].isFinish = false;
+            newGrid[row][col].isFinish = true;
+            newGrid[row][col].isWall = false;
+
+            setCurrEnd([row, col]);
+            setgrid(newGrid);
+            // setEnd(false);
+        } else if (type === 'erase') {
+            let newGrid = grid.slice();
+
+            newGrid[row][col].isWall = false;
+            setgrid(newGrid);
+            // setErase(false);
+        }
+    };
+
     return (
         <div className="container">
             <div className="btncont">
@@ -446,7 +497,7 @@ const App = () => {
                     Clear Walls
                 </button>
                 <button
-                    className="btn btn-danger"
+                    className="btn btn-secondary"
                     onClick={handleClear}
                     type="button"
                 >
@@ -472,6 +523,37 @@ const App = () => {
                 >
                     Generate Maze Using Recursive Division
                 </button>
+
+                <button
+                    className="btn btn-success"
+                    onClick={() => {
+                        setstart(!start);
+                        setEnd(false);
+                        setErase(false);
+                    }}
+                >
+                    Put Start Position
+                </button>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                        setstart(false);
+                        setEnd(!end);
+                        setErase(false);
+                    }}
+                >
+                    Put End Position
+                </button>
+                <button
+                    className="btn btn-secondary"
+                    onClick={() => {
+                        setstart(false);
+                        setEnd(false);
+                        setErase(!erase);
+                    }}
+                >
+                    Eraser
+                </button>
             </div>
 
             <div id="board">
@@ -486,6 +568,10 @@ const App = () => {
                                 onMouseUp={handleMouseUp}
                                 onMouseDown={handleMouseDown}
                                 onMouseEnter={handleMouseEnter}
+                                start={start}
+                                end={end}
+                                erase={erase}
+                                handleExtrafunc={handleExtrafunc}
                             >
                                 hello
                             </Node>
