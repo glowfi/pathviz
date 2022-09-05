@@ -7,7 +7,9 @@
 ## Shortest Path Algorithms
 
 -   Dijkstra
+-   DFS
 -   BFS
+-   Greedy BFS
 -   A\* with manhatten distance heuristic
 
 ## Maze Generating Algorithms

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { astargrid } from './Algorithms/Astar';
 import { BFSgrid } from './Algorithms/BFS';
 import { Dijkstragrid } from './Algorithms/Dijsktra';
+import { greedyBFSgrid } from './Algorithms/greedyBFS';
+import { DFSgrid } from './Algorithms/DFS';
 import './index.css';
 import Node from './Node';
 import { recursiveDivisionMaze } from './mazeAlgorithms/recursiveDivision';
@@ -84,6 +86,56 @@ const App = () => {
             grid
         );
 
+        // var duration = performance.now() - start;
+        // console.log(duration);
+
+        let { visited, shortest } = k;
+
+        for (let key in visited) {
+            let newGrid = grid.slice();
+            setTimeout(() => {
+                key = key.split(',');
+                let row = parseInt(key[0]);
+                let col = parseInt(key[1]);
+
+                if (
+                    [row, col].toString() !==
+                    [START_NODE_ROW, START_NODE_COL].toString() ||
+                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                ) {
+                    let newNode = createNode(row, col);
+                    newGrid[row][col] = { ...newNode, isVisited: true };
+                    setgrid(newGrid);
+                }
+            }, 20);
+        }
+        if (shortest.length > 0) {
+            for (const [row, col] of shortest) {
+                let newGrid = grid.slice();
+                setTimeout(() => {
+                    let newNode = createNode(row, col);
+                    if (
+                        [row, col].toString() !==
+                        [START_NODE_ROW, START_NODE_COL].toString() ||
+                        [row, col].toString() !==
+                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    ) {
+                        newGrid[row][col] = { ...newNode, isShort: true };
+                        setgrid(newGrid);
+                    }
+                }, 20);
+            }
+        }
+    };
+
+    const handlegreedyBFS = () => {
+        // var start = performance.now();
+
+        let k = greedyBFSgrid(
+            [START_NODE_ROW, START_NODE_COL],
+            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            grid
+        );
         // var duration = performance.now() - start;
         // console.log(duration);
 
@@ -227,6 +279,57 @@ const App = () => {
         }
     };
 
+    const handleDFS = () => {
+        // var start = performance.now();
+
+        let k = DFSgrid(
+            [START_NODE_ROW, START_NODE_COL],
+            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            grid
+        );
+
+        // var duration = performance.now() - start;
+        // console.log(duration);
+
+        let { visited, out } = k;
+
+        for (let key in visited) {
+            let newGrid = grid.slice();
+            setTimeout(() => {
+                key = key.split(',');
+                let row = parseInt(key[0]);
+                let col = parseInt(key[1]);
+
+                if (
+                    [row, col].toString() !==
+                    [START_NODE_ROW, START_NODE_COL].toString() ||
+                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                ) {
+                    let newNode = createNode(row, col);
+                    newGrid[row][col] = { ...newNode, isVisited: true };
+                    setgrid(newGrid);
+                }
+            }, 20);
+        }
+        if (out.length > 0) {
+            for (const [row, col] of out) {
+                let newGrid = grid.slice();
+                setTimeout(() => {
+                    let newNode = createNode(row, col);
+                    if (
+                        [row, col].toString() !==
+                        [START_NODE_ROW, START_NODE_COL].toString() ||
+                        [row, col].toString() !==
+                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    ) {
+                        newGrid[row][col] = { ...newNode, isShort: true };
+                        setgrid(newGrid);
+                    }
+                }, 20);
+            }
+        }
+    };
+
     const handleClearPath = () => {
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[0].length; j++) {
@@ -295,10 +398,24 @@ const App = () => {
             <div className="btncont">
                 <button
                     className="btn btn-dark"
+                    onClick={handleDFS}
+                    type="button"
+                >
+                    DFS
+                </button>
+                <button
+                    className="btn btn-dark"
                     onClick={handleBFS}
                     type="button"
                 >
                     BFS
+                </button>
+                <button
+                    className="btn btn-dark"
+                    onClick={handlegreedyBFS}
+                    type="button"
+                >
+                    Greedy BFS
                 </button>
                 <button
                     className="btn btn-dark"
