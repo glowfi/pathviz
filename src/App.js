@@ -97,8 +97,8 @@ const App = () => {
         // var start = performance.now();
 
         let k = astargrid(
-            [START_NODE_ROW, START_NODE_COL],
-            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]],
             grid
         );
 
@@ -116,8 +116,8 @@ const App = () => {
 
                 if (
                     [row, col].toString() !==
-                    [START_NODE_ROW, START_NODE_COL].toString() ||
-                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    [currStart[0], currStart[1]].toString() ||
+                    [row, col].toString() !== [currEnd[0], currEnd[1]]
                 ) {
                     let newNode = createNode(row, col);
                     newGrid[row][col] = { ...newNode, isVisited: true };
@@ -132,9 +132,8 @@ const App = () => {
                     let newNode = createNode(row, col);
                     if (
                         [row, col].toString() !==
-                        [START_NODE_ROW, START_NODE_COL].toString() ||
-                        [row, col].toString() !==
-                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                        [currStart[0], currStart[1]].toString() ||
+                        [row, col].toString() !== [currEnd[0], currEnd[1]]
                     ) {
                         newGrid[row][col] = { ...newNode, isShort: true };
                         setgrid(newGrid);
@@ -148,8 +147,8 @@ const App = () => {
         // var start = performance.now();
 
         let k = greedyBFSgrid(
-            [START_NODE_ROW, START_NODE_COL],
-            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]],
             grid
         );
         // var duration = performance.now() - start;
@@ -166,8 +165,8 @@ const App = () => {
 
                 if (
                     [row, col].toString() !==
-                    [START_NODE_ROW, START_NODE_COL].toString() ||
-                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    [currStart[0], currStart[1]].toString() ||
+                    [row, col].toString() !== [currEnd[0], currEnd[1]]
                 ) {
                     let newNode = createNode(row, col);
                     newGrid[row][col] = { ...newNode, isVisited: true };
@@ -182,9 +181,8 @@ const App = () => {
                     let newNode = createNode(row, col);
                     if (
                         [row, col].toString() !==
-                        [START_NODE_ROW, START_NODE_COL].toString() ||
-                        [row, col].toString() !==
-                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                        [currStart[0], currStart[1]].toString() ||
+                        [row, col].toString() !== [currEnd[0], currEnd[1]]
                     ) {
                         newGrid[row][col] = { ...newNode, isShort: true };
                         setgrid(newGrid);
@@ -198,8 +196,8 @@ const App = () => {
         // var start = performance.now();
 
         let k = Dijkstragrid(
-            [START_NODE_ROW, START_NODE_COL],
-            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]],
             grid
         );
         // var duration = performance.now() - start;
@@ -216,8 +214,8 @@ const App = () => {
 
                 if (
                     [row, col].toString() !==
-                    [START_NODE_ROW, START_NODE_COL].toString() ||
-                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    [currStart[1], currStart[0]].toString() ||
+                    [row, col].toString() !== [currEnd[0], currEnd[1]]
                 ) {
                     let newNode = createNode(row, col);
                     newGrid[row][col] = { ...newNode, isVisited: true };
@@ -232,9 +230,8 @@ const App = () => {
                     let newNode = createNode(row, col);
                     if (
                         [row, col].toString() !==
-                        [START_NODE_ROW, START_NODE_COL].toString() ||
-                        [row, col].toString() !==
-                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                        [currStart[0], currStart[1]].toString() ||
+                        [row, col].toString() !== [currEnd[0], currEnd[1]]
                     ) {
                         newGrid[row][col] = { ...newNode, isShort: true };
                         setgrid(newGrid);
@@ -248,8 +245,8 @@ const App = () => {
         // var start = performance.now();
 
         let k = BFSgrid(
-            [START_NODE_ROW, START_NODE_COL],
-            [FINISH_NODE_ROW, FINISH_NODE_COL],
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]],
             grid
         );
 
@@ -267,8 +264,8 @@ const App = () => {
 
                 if (
                     [row, col].toString() !==
-                    [START_NODE_ROW, START_NODE_COL].toString() ||
-                    [row, col].toString() !== [FINISH_NODE_ROW, FINISH_NODE_COL]
+                    [currStart[0], currStart[1]].toString() ||
+                    [row, col].toString() !== [currEnd[0], currEnd[1]]
                 ) {
                     let newNode = createNode(row, col);
                     newGrid[row][col] = { ...newNode, isVisited: true };
@@ -333,9 +330,8 @@ const App = () => {
                     let newNode = createNode(row, col);
                     if (
                         [row, col].toString() !==
-                        [START_NODE_ROW, START_NODE_COL].toString() ||
-                        [row, col].toString() !==
-                        [FINISH_NODE_ROW, FINISH_NODE_COL]
+                        [currStart[0], currStart[1]].toString() ||
+                        [row, col].toString() !== [currEnd[0], currEnd[1]]
                     ) {
                         newGrid[row][col] = { ...newNode, isShort: true };
                         setgrid(newGrid);
