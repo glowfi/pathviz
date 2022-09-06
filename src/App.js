@@ -377,7 +377,11 @@ const App = () => {
 
     const handlerandomMaze = () => {
         let nw = getGrid();
-        let k = randomMaze(grid, [0, 0], [grid.length - 1, grid[0].length - 1]);
+        let k = randomMaze(
+            grid,
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]]
+        );
         let newGrid = nw.slice();
         for (const key of k) {
             let row = key[0];
@@ -391,8 +395,8 @@ const App = () => {
         let nw = getGrid();
         let k = recursiveDivisionMaze(
             grid,
-            [0, 0],
-            [grid.length - 1, grid[0].length - 1]
+            [currStart[0], currStart[1]],
+            [currEnd[0], currEnd[1]]
         );
 
         let newGrid = nw.slice();
